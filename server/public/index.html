@@ -1,17 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <script src="./scripts/axios.js"></script>
-  <script src="./scripts/client.js"></script>
-  <title>SQL TO-DO List</title>
-</head>
-<body>
-  <header>
-    <h1>SQL TO-DO List</h1>
-  </header>
-
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="./scripts/axios.js"></script>
+    <script src="./scripts/client.js"></script>
+    <title>Weekend Todos</title>
+  </head>
+  <body>
+    <header>
+      <h1>SQL TO-DO List</h1>
+    </header>
+    <main>
+      <form id="form-id" onsubmit="addTodo(event)">
+        <input id="todo-id" type="text" placeholder="Add Todo" value="add todo" />
+        <button type="submit">Add Todo</button>
+      </form>
+      <ul id="todo-list"></ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Todo</th>
+            <th>Complete?</th>
+            <th>Date Created</th>
+            <th>Date Completed</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- TODOS GO HERE -->
+        </tbody>
+      </table>
+    </main>
+  </body>
 </html>
