@@ -74,15 +74,15 @@ router.put('/reset', (req, res) => {
 //PUT
 router.put('/:id', (req, res) => {
   const queryText = `
-      UPDATE "todos" 
-      SET "isComplete"= NOT "isComplete", 
-      "complete_date"= 
-          CASE WHEN NOT "isComplete" 
-              THEN NOW() 
-              ELSE NULL 
-          END 
-      WHERE "id"=$1
-      RETURNING *;`;
+          UPDATE "todos" 
+          SET "isComplete"= NOT "isComplete", 
+          "complete_date"= 
+              CASE WHEN NOT "isComplete" 
+                  THEN NOW() 
+                  ELSE NULL 
+              END 
+          WHERE "id"=$1
+          RETURNING *;`;
   pool
     .query(queryText, [req.params.id])
     .then((result) => {
