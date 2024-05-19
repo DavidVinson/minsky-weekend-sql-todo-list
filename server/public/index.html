@@ -17,6 +17,12 @@
         <button onclick="resetTodos()">Reset</button>
         <button onclick="goneFishing()">Gone Fishing</button>
       </div>
+      <dialog>
+        <form id="dialog-form-id" onsubmit="updateTodo(event)">
+          <input id="dialog-todo-id" type="text" placeholder="Update Todo" value="todo to update" />
+          <button id="submit-btn-id" type="submit">Update Todo</button>
+        </form>
+      </dialog>
       <form id="form-id" onsubmit="addTodo(event)">
         <input id="todo-id" type="text" placeholder="Add Todo" value="add todo" />
         <button id="submit-btn-id" type="submit">Add Todo</button>

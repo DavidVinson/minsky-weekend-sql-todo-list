@@ -74,10 +74,10 @@ router.put('/reset', (req, res) => {
 //PUT (update todo text)
 router.put('/update/:id', (req, res) => {
   const queryText = `
-            UPDATE "todos" 
-            SET "text" = $2
-            WHERE "id"=$1
-            RETURNING *;`;
+    UPDATE "todos" 
+    SET "text" = $2
+    WHERE "id"=$1
+    RETURNING *;`;
   pool
     .query(queryText, [req.params.id, req.body.text])
     .then((result) => {
@@ -92,15 +92,15 @@ router.put('/update/:id', (req, res) => {
 //PUT (toggle complete)
 router.put('/:id', (req, res) => {
   const queryText = `
-          UPDATE "todos" 
-          SET "isComplete"= NOT "isComplete", 
-          "complete_date"= 
-              CASE WHEN NOT "isComplete" 
-                  THEN NOW() 
-                  ELSE NULL 
-              END 
-          WHERE "id"=$1
-          RETURNING *;`;
+    UPDATE "todos" 
+    SET "isComplete"= NOT "isComplete", 
+    "complete_date"= 
+        CASE WHEN NOT "isComplete" 
+            THEN NOW() 
+            ELSE NULL 
+        END 
+    WHERE "id"=$1
+    RETURNING *;`;
   pool
     .query(queryText, [req.params.id])
     .then((result) => {

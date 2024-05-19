@@ -1,3 +1,6 @@
+//Update todo in global scope
+let editTodoId = '';
+
 function onReady() {
   getTodos();
   return;
@@ -48,8 +51,8 @@ function renderTodos(todos) {
   });
 }
 
-function handleCompleteTodo(event, editTodoId) {
-  const todoId = event.target.closest('tr').id || editTodoId;
+function handleCompleteTodo(event) {
+  const todoId = event.target.closest('tr').id;
   axios
     .put(`/todos/${todoId}`)
     .then(() => getTodos())
@@ -59,41 +62,38 @@ function handleCompleteTodo(event, editTodoId) {
 }
 
 function handleEditTodo(event) {
-  console.log('handle edit todo!', event.target.closest('tr').id);
-  const todoId = event.target.closest('tr').id;
-  const rowInfo = event.target.closest('tr');
-  console.log('TODO: ', rowInfo.querySelector('td').textContent);
-  const inputElement = document.getElementById('todo-id');
-  const submitFormBtn = document.getElementById('submit-btn-id');
-  const form = document.getElementById('form-id');
-  form.removeAttribute('onsubmit');
-  form.setAttribute('onsubmit', 'updateTodo(event)');
-  console.log('new form submit', form);
+  //open dialog box
+  document.querySelector('dialog').showModal();
+  //edit todo id
+  editTodoId = event.target.closest('tr').id;
 
-  submitFormBtn.textContent = 'Update Todo';
-  inputElement.value = rowInfo.querySelector('td').textContent;
-  //   if (confirm(`Edit todo ${rowInfo.id}`)) {
-  //     axios
-  //       .put(`todos/update/${todoId}`, { text: inputElement.value })
-  //       .then(() => {
-  //         submitFormBtn.textContent = 'Add Todo';
-  //         document.getElementById('form-id').reset();
-  //         getTodos();
-  //       })
-  //       .catch((error) => {
-  //         console.error(`Error in Updating Todo`, error);
-  //       });
-  //   } else {
-  //     // clear form
-  //     submitFormBtn.textContent = 'Add Todo';
-  //     document.getElementById('form-id').reset();
-  //   }
-  return;
+  //load todo information to be edited
+  const rowInfo = event.target.closest('tr');
+  let dialogInput = document.getElementById('dialog-todo-id');
+  dialogInput.value = rowInfo.querySelector('td').textContent;
 }
 
 function updateTodo(event) {
   event.preventDefault();
-  console.log('Updating todo...');
+  //get new input values from DOM
+  let dialogInput = document.getElementById('dialog-todo-id').value;
+
+  //PUT request to update
+  axios
+    .put(`todos/update/${editTodoId}`, { text: dialogInput })
+    .then(() => {
+      // reset/clear dialog form and global edit todo id
+      document.getElementById('dialog-form-id').reset();
+      editTodoId = '';
+      dialogInput = '';
+      getTodos();
+    })
+    .catch((error) => {
+      console.error(`Error in Updating Todo`, error);
+    });
+
+  //close dialog
+  document.querySelector('dialog').close();
   return;
 }
 
