@@ -13,21 +13,25 @@
       <h1>SQL TO-DO List</h1>
     </header>
     <main>
+      <div>
+        <button onclick="resetTodos()">Reset</button>
+        <button onclick="goneFishing()">Gone Fishing</button>
+      </div>
       <form id="form-id" onsubmit="addTodo(event)">
         <input id="todo-id" type="text" placeholder="Add Todo" value="add todo" />
-        <button type="submit">Add Todo</button>
+        <button id="submit-btn-id" type="submit">Add Todo</button>
       </form>
       <ul id="todo-list"></ul>
       <table>
         <thead>
           <tr>
-            <th>Id</th>
             <th>Todo</th>
             <th>Complete?</th>
             <th>Date Created</th>
             <th>Date Completed</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th></th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>

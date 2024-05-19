@@ -71,7 +71,25 @@ router.put('/reset', (req, res) => {
     });
 });
 
-//PUT
+//PUT (update todo text)
+router.put('/update/:id', (req, res) => {
+  const queryText = `
+            UPDATE "todos" 
+            SET "text" = $2
+            WHERE "id"=$1
+            RETURNING *;`;
+  pool
+    .query(queryText, [req.params.id, req.body.text])
+    .then((result) => {
+      res.status(200).send(result.rows[0]);
+    })
+    .catch((error) => {
+      console.log(`Error in UPDATE TODO TEXT`, error);
+      res.sendStatus(500);
+    });
+});
+
+//PUT (toggle complete)
 router.put('/:id', (req, res) => {
   const queryText = `
           UPDATE "todos" 
