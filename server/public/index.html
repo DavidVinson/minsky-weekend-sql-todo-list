@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment-with-locales.min.js"
+      integrity="sha512-4F1cxYdMiAW98oomSLaygEwmCnIP38pb4Kx70yQYqRwLVCs3DbRumfBq82T08g/4LJ/smbFGFpmeFlQgoDccgg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="style.css" />
     <script src="./scripts/axios.js"></script>
     <script src="./scripts/client.js"></script>
@@ -24,16 +29,17 @@
           <button id="submit-btn-id" type="submit">Update Todo</button>
         </form>
       </dialog>
+      <h2>Add a Todo</h2>
       <form id="form-id" onsubmit="addTodo(event)">
         <input id="todo-id" type="text" placeholder="Add Todo" value="add todo" />
         <button id="submit-btn-id" type="submit">Add Todo</button>
       </form>
-      <ul id="todo-list"></ul>
+      <hr />
       <table>
         <thead>
           <tr>
+            <th></th>
             <th>Todo</th>
-            <th>Complete?</th>
             <th>Date Created</th>
             <th>Date Completed</th>
             <th></th>

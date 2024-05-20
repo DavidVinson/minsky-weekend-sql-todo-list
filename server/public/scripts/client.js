@@ -46,13 +46,13 @@ function renderTodos(todos) {
   todos.map((todo) => {
     todoList.innerHTML += `
          <tr id=${todo.id}>
+            <td>${todo.isComplete ? '✅' : '☐'}</td>
              <td>${todo.text}</td>
-             <td>${todo.isComplete}</td> 
-             <td>${todo.create_date}</td> 
-             <td>${todo.complete_date}</td>
+             <td>${moment(todo.create_date).format('L')}</td> 
+             <td>${todo.complete_date ? moment(todo.complete_date).format('L') : ''}</td>
              <td>
              <button id="complete-btn-id" onClick="handleCompleteTodo(event)">Complete</button>
-         </td>
+            </td>
              <td>
                  <button id="edit-btn-id" onClick="handleEditTodo(event)">Edit</button>
              </td>
@@ -83,7 +83,7 @@ function handleEditTodo(event) {
   //load todo information to be edited
   const rowInfo = event.target.closest('tr');
   let dialogInput = document.getElementById('dialog-todo-id');
-  dialogInput.value = rowInfo.querySelector('td').textContent;
+  dialogInput.value = rowInfo.querySelector('td:nth-child(2)').textContent;
 }
 
 function updateTodo(event) {
@@ -110,14 +110,14 @@ function updateTodo(event) {
   return;
 }
 
-function handleDeleteTodo(event) {
+async function handleDeleteTodo(event) {
   const todoId = event.target.closest('tr').id;
-  axios
-    .delete(`/todos/${todoId}`)
-    .then(() => getTodos())
-    .catch((error) => {
-      console.error('Error deleting todo from list', error);
-    });
+  try {
+    await axios.delete(`/todos/${todoId}`);
+    getTodos();
+  } catch (error) {
+    console.error('Error deleting todo from list', error);
+  }
 }
 
 // reset for testing

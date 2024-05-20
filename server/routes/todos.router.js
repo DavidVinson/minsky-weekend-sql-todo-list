@@ -5,7 +5,7 @@ const pool = require('../modules/pool');
 router.get('/', (req, res) => {
   const queryText = `
     SELECT * FROM "todos" 
-    ORDER BY "isComplete", "complete_date" DESC;`;
+    ORDER BY "isComplete", "create_date" DESC, "complete_date" DESC;`;
   pool
     .query(queryText)
     .then((result) => res.send(result.rows))
