@@ -8,6 +8,7 @@
       integrity="sha512-4F1cxYdMiAW98oomSLaygEwmCnIP38pb4Kx70yQYqRwLVCs3DbRumfBq82T08g/4LJ/smbFGFpmeFlQgoDccgg=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="style.css" />
     <script src="./scripts/axios.js"></script>
     <script src="./scripts/client.js"></script>
@@ -24,15 +25,17 @@
         <button id="gone-fishing-btn-id" onclick="goneFishing()" hidden>Gone Fishing</button>
       </div>
       <dialog>
+        <h3>Update Todo</h3>
         <form id="dialog-form-id" onsubmit="updateTodo(event)">
           <input id="dialog-todo-id" type="text" placeholder="Update Todo" value="todo to update" />
           <button id="submit-btn-id" type="submit">Update Todo</button>
+          <button type="button" onclick="closeDialog()">Close</button>
         </form>
       </dialog>
       <h2>Add a Todo</h2>
       <form id="form-id" onsubmit="addTodo(event)">
         <input id="todo-id" type="text" placeholder="Add Todo" value="add todo" />
-        <button id="submit-btn-id" type="submit">Add Todo</button>
+        <button id="submit-btn-id" type="submit">Add</button>
       </form>
       <hr />
       <table>
@@ -40,8 +43,8 @@
           <tr>
             <th></th>
             <th>Todo</th>
-            <th>Date Created</th>
-            <th>Date Completed</th>
+            <th>Created</th>
+            <th>Completed</th>
             <th></th>
             <th></th>
             <th></th>

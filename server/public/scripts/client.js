@@ -38,20 +38,34 @@ function renderTodos(todos) {
   todoList.innerHTML = '';
   if (todos.length >= 20 && goneFishingBtn.hasAttribute('hidden')) {
     //gon fishing protocol! enable button!
-    alert('Unlocked Gone Fishing Protocol!');
+    // alert();
+    Swal.fire({
+      title: 'Gone Fishing Protocol',
+      text: 'Unlocked Gone Fishing Protocol!',
+      icon: 'info',
+      confirmButtonText: 'Ready!',
+    });
     goneFishingBtn.removeAttribute('hidden');
   } else if (todos.length > 0 && todos.every((todo) => todo.isComplete)) {
-    alert('Gone Fishing!!!');
+    // alert();
+    Swal.fire({
+      title: 'Gone Fishing!!!',
+      text: 'All Todos done',
+      icon: 'success',
+      confirmButtonText: 'Whoohoo!',
+    });
   }
   todos.map((todo) => {
     todoList.innerHTML += `
          <tr id=${todo.id}>
-            <td>${todo.isComplete ? '✅' : '☐'}</td>
+            <td>${todo.isComplete ? '✅' : '🔲'}</td>
              <td>${todo.text}</td>
              <td>${moment(todo.create_date).format('L')}</td> 
              <td>${todo.complete_date ? moment(todo.complete_date).format('L') : ''}</td>
              <td>
-             <button id="complete-btn-id" onClick="handleCompleteTodo(event)">Complete</button>
+             <button id="complete-btn-id" onClick="handleCompleteTodo(event)">${
+               todo.isComplete ? 'Undo' : 'Done'
+             }</button>
             </td>
              <td>
                  <button id="edit-btn-id" onClick="handleEditTodo(event)">Edit</button>
@@ -72,6 +86,7 @@ function handleCompleteTodo(event) {
     .catch((error) => {
       console.error('Error Marking todo complete', error);
     });
+  return;
 }
 
 function handleEditTodo(event) {
@@ -84,6 +99,12 @@ function handleEditTodo(event) {
   const rowInfo = event.target.closest('tr');
   let dialogInput = document.getElementById('dialog-todo-id');
   dialogInput.value = rowInfo.querySelector('td:nth-child(2)').textContent;
+  return;
+}
+
+function closeDialog() {
+  document.querySelector('dialog').close();
+  return;
 }
 
 function updateTodo(event) {
@@ -106,7 +127,7 @@ function updateTodo(event) {
     });
 
   //close dialog
-  document.querySelector('dialog').close();
+  closeDialog();
   return;
 }
 
