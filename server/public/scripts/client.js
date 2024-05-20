@@ -1,5 +1,6 @@
 //Update todo in global scope
 let editTodoId = '';
+let todoCount = 0;
 
 function onReady() {
   getTodos();
@@ -30,7 +31,18 @@ function getTodos() {
 
 function renderTodos(todos) {
   const todoList = document.querySelector('tbody');
+  const todoCountElement = document.querySelector('p');
+  let goneFishingBtn = document.getElementById('gone-fishing-btn-id');
+  todoCount = todos.length;
+  todoCountElement.textContent = todoCount;
   todoList.innerHTML = '';
+  if (todos.length >= 20 && goneFishingBtn.hasAttribute('hidden')) {
+    //gon fishing protocol! enable button!
+    alert('Unlocked Gone Fishing Protocol!');
+    goneFishingBtn.removeAttribute('hidden');
+  } else if (todos.length > 0 && todos.every((todo) => todo.isComplete)) {
+    alert('Gone Fishing!!!');
+  }
   todos.map((todo) => {
     todoList.innerHTML += `
          <tr id=${todo.id}>
@@ -49,6 +61,7 @@ function renderTodos(todos) {
              </td>
          </tr>`;
   });
+  return;
 }
 
 function handleCompleteTodo(event) {
@@ -111,7 +124,11 @@ function handleDeleteTodo(event) {
 function resetTodos() {
   axios
     .put('todos/reset')
-    .then(() => getTodos())
+    .then(() => {
+      let goneFishingBtn = document.getElementById('gone-fishing-btn-id');
+      goneFishingBtn.setAttribute('hidden', true);
+      getTodos();
+    })
     .catch((error) => {
       console.error('Error Reseting Todos', error);
     });

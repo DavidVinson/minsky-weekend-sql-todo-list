@@ -11,11 +11,12 @@
   <body>
     <header>
       <h1>SQL TO-DO List</h1>
+      <p></p>
     </header>
     <main>
       <div>
         <button onclick="resetTodos()">Reset</button>
-        <button onclick="goneFishing()">Gone Fishing</button>
+        <button id="gone-fishing-btn-id" onclick="goneFishing()" hidden>Gone Fishing</button>
       </div>
       <dialog>
         <form id="dialog-form-id" onsubmit="updateTodo(event)">
